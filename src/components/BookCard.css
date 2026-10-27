@@ -1,0 +1,64 @@
+
+.book {
+    width: 22%;
+    text-align: center;
+}
+
+.book img {
+    width: 100%;
+    max-width: 200px;
+}
+
+.book h3,
+.book-card h3 {
+    color: #4a2932;
+    font-family: Georgia, serif;
+}
+
+.book p {
+    margin: 7px;
+}
+
+.book-card {
+    background: #e8d8d0;
+    width: calc(25% - 19px);
+    text-align: center;
+    padding: 20px 10px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.book-card img {
+    width: 150px;
+    max-width: 100%;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.book-card p {
+    margin: 6px;
+}
+
+.book-card .button {
+    margin-top: 12px;
+}
+
+@media only screen and (max-width: 900px) {
+    .book-card {
+        width: calc(50% - 13px);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .book {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .book-card {
+        width: 100%;
+    }
+}
