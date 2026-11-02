@@ -1,0 +1,77 @@
+
+.book-carousel-section {
+    background: #f8f3eb;
+    padding: 70px 8%;
+    text-align: center;
+}
+
+.book-carousel-section h2 {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    color: #4a2932;
+}
+
+.book-carousel-section > p {
+    margin-bottom: 40px;
+    font-size: 17px;
+}
+
+.book-swiper {
+    max-width: 1100px;
+    padding: 10px 40px 55px;
+    box-sizing: border-box;
+    --swiper-theme-color: #4a2932;
+}
+
+.carousel-book {
+    background: #e8d8d0;
+    border-radius: 15px;
+    padding: 25px 15px;
+    min-height: 390px;
+    box-sizing: border-box;
+}
+
+.carousel-book img {
+    width: 150px;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.carousel-book h3 {
+    font-family: Georgia, serif;
+    color: #4a2932;
+    font-size: 20px;
+    margin: 15px 0 8px;
+}
+
+.carousel-book p {
+    margin: 0 0 15px;
+}
+
+.carousel-book .button {
+    margin-top: 10px;
+}
+
+.book-swiper .swiper-button-next,
+.book-swiper .swiper-button-prev {
+    color: #4a2932;
+}
+
+.book-swiper .swiper-pagination-bullet-active {
+    background: #4a2932;
+}
+
+@media only screen and (max-width: 600px) {
+    .book-carousel-section {
+        padding: 45px 5%;
+    }
+
+    .book-swiper {
+        padding: 10px 25px 50px;
+    }
+
+    .book-carousel-section h2 {
+        font-size: 30px;
+    }
+}

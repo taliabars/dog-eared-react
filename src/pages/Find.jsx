@@ -1,4 +1,6 @@
 
+import { useState } from "react";
+import toast from "react-hot-toast";
 import QuizOption from "../components/QuizOption";
 import "./Find.css";
 
@@ -40,6 +42,24 @@ const steps = [
 ];
 
 function Find() {
+    const [answers, setAnswers] = useState({});
+
+    const selectAnswer = (questionIndex, choice) => {
+        setAnswers((previous) => ({
+            ...previous,
+            [questionIndex]: choice
+        }));
+    };
+
+    const handleFindBook = () => {
+        if (Object.keys(answers).length < questions.length) {
+            toast.error("Please answer all four questions.");
+            return;
+        }
+
+        toast.success("Your reading preferences are saved!");
+    };
+
     return (
         <main className="find-page">
             <h2 className="page-title">Find Your Next Read</h2>
@@ -50,20 +70,25 @@ function Find() {
             </p>
 
             <section className="find-quiz">
-                {questions.map((question) => (
+                {questions.map((question, questionIndex) => (
                     <section className="find-question" key={question.title}>
                         <h3>{question.title}</h3>
 
                         <div className="find-options">
                             {question.choices.map((choice) => (
-                                <QuizOption key={choice} label={choice} />
+                                <QuizOption
+                                    key={choice}
+                                    label={choice}
+                                    selected={answers[questionIndex] === choice}
+                                    onSelect={() => selectAnswer(questionIndex, choice)}
+                                />
                             ))}
                         </div>
                     </section>
                 ))}
 
                 <div className="find-quiz-button">
-                    <button type="button">
+                    <button type="button" onClick={handleFindBook}>
                         Find My Book →
                     </button>
                 </div>

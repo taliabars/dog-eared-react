@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import GenreCard from "../components/GenreCard";
 import ReadingListCard from "../components/ReadingListCard";
+import BookCarousel from "../components/BookCarousel";
+import BookSlideshow from "../components/BookSlideshow";
 import "./Home.css";
 
 function Home() {
@@ -40,6 +42,7 @@ function Home() {
                         author="Taylor Jenkins Reid"
                         image="evelyn-hugo.jpg"
                         genre="Historical Fiction"
+                        link="/book"
                     />
 
                     <BookCard
@@ -133,6 +136,10 @@ function Home() {
                     />
                 </div>
             </section>
+
+            <BookCarousel />
+
+            <BookSlideshow />
         </main>
     );
 }

@@ -1,5 +1,6 @@
 
 import { HashRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -26,6 +27,8 @@ function App() {
             </Routes>
 
             <Footer />
+
+            <Toaster position="top-right" />
         </HashRouter>
     );
 }

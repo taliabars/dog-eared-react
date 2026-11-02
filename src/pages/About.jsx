@@ -1,8 +1,69 @@
 
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./About.css";
 
 function About() {
+    const [status, setStatus] = useState("");
+    const [statusType, setStatusType] = useState("");
+    const [sending, setSending] = useState(false);
+
+    useEffect(() => {
+        if (!status) return;
+
+        const timer = setTimeout(() => {
+            setStatus("");
+            setStatusType("");
+        }, 5000);
+
+        return () => clearTimeout(timer);
+    }, [status]);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (sending) return;
+
+        const form = event.currentTarget;
+
+        if (!form.reportValidity()) return;
+
+        const formData = new FormData(form);
+        formData.append("access_key", "2aff50c0-c462-4225-8d0e-72ea6484f29b");
+        formData.append("subject", "New Message from Dog-Eared");
+
+        setSending(true);
+        setStatus("Sending your message...");
+        setStatusType("sending");
+
+        try {
+            const response = await fetch(
+                "https://api.web3forms.com/submit",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                setStatus("Your message was sent successfully!");
+                setStatusType("success");
+                form.reset();
+            } else {
+                setStatus("Something went wrong. Please try again.");
+                setStatusType("error");
+            }
+        } catch (error) {
+            console.error("Contact form error:", error);
+            setStatus("Unable to send your message. Please try again.");
+            setStatusType("error");
+        } finally {
+            setSending(false);
+        }
+    };
+
     return (
         <main className="about-page">
             <section className="about-top">
@@ -110,11 +171,15 @@ function About() {
                     to talk books? I'd love to hear from you!
                 </p>
 
-                <form className="about-contact-form">
+                <form
+                    className="about-contact-form"
+                    onSubmit={handleSubmit}
+                >
                     <label htmlFor="contact-name">Name</label>
                     <input
                         type="text"
                         id="contact-name"
+                        name="name"
                         placeholder="Your name"
                         required
                     />
@@ -123,6 +188,7 @@ function About() {
                     <input
                         type="email"
                         id="contact-email"
+                        name="email"
                         placeholder="Your email address"
                         required
                     />
@@ -130,15 +196,50 @@ function About() {
                     <label htmlFor="contact-message">Message</label>
                     <textarea
                         id="contact-message"
+                        name="message"
                         placeholder="Write your message here..."
                         rows="6"
                         required
                     ></textarea>
 
-                    <button type="button" className="button">
-                        Send Message →
+                    <button
+                        type="submit"
+                        className="button"
+                        disabled={sending}
+                    >
+                        {sending ? "Sending..." : "Send Message →"}
                     </button>
+
+                    {status && (
+                        <p
+                            className={`contact-status ${statusType}`}
+                            role="status"
+                            aria-live="polite"
+                        >
+                            {status}
+                        </p>
+                    )}
                 </form>
+            </section>
+
+            <section className="about-video-section">
+                <h2>More Five-Star Reading Inspiration</h2>
+
+                <p>
+                    Looking for more books to add to your TBR?
+                    Check out some of Steph Bohrer's favorite
+                    five-star reads!
+                </p>
+
+                <div className="about-video-container">
+                    <iframe
+                        src="https://www.youtube.com/embed/S5Q4LghzgVU"
+                        title="Steph Bohrer Five-Star Book Recommendations"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                    ></iframe>
+                </div>
             </section>
         </main>
     );
