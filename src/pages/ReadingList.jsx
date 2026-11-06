@@ -9,25 +9,28 @@ const featuredBooks = [
         author: "Taylor Jenkins Reid",
         image: "evelyn-hugo.jpg",
         genre: "Historical Fiction",
-        link: "/book"
+        link: "/book/1"
     },
     {
         title: "The Hawthorne Legacy",
         author: "Jennifer Lynn Barnes",
         image: "hawthorne-legacy.jpg",
-        genre: "Mystery"
+        genre: "Mystery",
+        link: "/book/2"
     },
     {
         title: "People We Meet on Vacation",
         author: "Emily Henry",
         image: "people-vacation.jpg",
-        genre: "Romance"
+        genre: "Romance",
+        link: "/book/4"
     },
     {
         title: "The Seven Year Slip",
         author: "Ashley Poston",
         image: "seven-year-slip.jpg",
-        genre: "Romance"
+        genre: "Romance",
+        link: "/book/10"
     }
 ];
 

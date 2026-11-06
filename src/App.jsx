@@ -1,8 +1,10 @@
 
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
 import Find from "./pages/Find";
@@ -23,6 +25,7 @@ function App() {
                 <Route path="/lists" element={<Lists />} />
                 <Route path="/reading-list" element={<ReadingList />} />
                 <Route path="/book" element={<Book />} />
+                <Route path="/book/:id" element={<Book />} />
                 <Route path="/about" element={<About />} />
             </Routes>
 

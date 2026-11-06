@@ -13,32 +13,37 @@ const books = [
         title: "The Seven Husbands of Evelyn Hugo",
         author: "Taylor Jenkins Reid",
         image: "evelyn-hugo.jpg",
-        link: "/book"
+        link: "/book/1"
     },
     {
         title: "The Hawthorne Legacy",
         author: "Jennifer Lynn Barnes",
-        image: "hawthorne-legacy.jpg"
+        image: "hawthorne-legacy.jpg",
+        link: "/book/2"
     },
     {
         title: "People We Meet on Vacation",
         author: "Emily Henry",
-        image: "people-vacation.jpg"
+        image: "people-vacation.jpg",
+        link: "/book/4"
     },
     {
         title: "Heart Bones",
         author: "Colleen Hoover",
-        image: "heart-bones.jpg"
+        image: "heart-bones.jpg",
+        link: "/book/5"
     },
     {
         title: "The Seven Year Slip",
         author: "Ashley Poston",
-        image: "seven-year-slip.jpg"
+        image: "seven-year-slip.jpg",
+        link: "/book/10"
     },
     {
         title: "Love & Olives",
         author: "Jenna Evans Welch",
-        image: "love-olives.jpg"
+        image: "love-olives.jpg",
+        link: "/book/3"
     }
 ];
 
@@ -74,19 +79,22 @@ function BookCarousel() {
                 {books.map((book) => (
                     <SwiperSlide key={book.title}>
                         <div className="carousel-book">
-                            <img
-                                src={`${import.meta.env.BASE_URL}images/${book.image}`}
-                                alt={book.title}
-                            />
+                            <Link
+                                to={book.link}
+                                aria-label={`View ${book.title}`}
+                            >
+                                <img
+                                    src={`${import.meta.env.BASE_URL}images/${book.image}`}
+                                    alt={book.title}
+                                />
+                            </Link>
 
                             <h3>{book.title}</h3>
                             <p>{book.author}</p>
 
-                            {book.link && (
-                                <Link className="button" to={book.link}>
-                                    View Book →
-                                </Link>
-                            )}
+                            <Link className="button" to={book.link}>
+                                View Book →
+                            </Link>
                         </div>
                     </SwiperSlide>
                 ))}

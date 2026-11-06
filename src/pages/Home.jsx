@@ -42,7 +42,7 @@ function Home() {
                         author="Taylor Jenkins Reid"
                         image="evelyn-hugo.jpg"
                         genre="Historical Fiction"
-                        link="/book"
+                        link="/book/1"
                     />
 
                     <BookCard
@@ -50,6 +50,7 @@ function Home() {
                         author="Susan Wiggs"
                         image="beach-town.jpg"
                         genre="Contemporary Fiction"
+                        link="/book/12"
                     />
 
                     <BookCard

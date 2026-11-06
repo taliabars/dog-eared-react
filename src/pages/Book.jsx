@@ -1,59 +1,111 @@
 
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import "./Book.css";
 
 function Book() {
+    const { id } = useParams();
+
+    const [book, setBook] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        const getBook = async () => {
+            setLoading(true);
+            setError("");
+            setBook(null);
+
+            try {
+                const response = await fetch(
+                    `https://dog-eared-server.onrender.com/api/books/${id}`,
+                    { signal: controller.signal }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Could not load book details");
+                }
+
+                const data = await response.json();
+                setBook(data);
+            } catch (err) {
+                if (err.name !== "AbortError") {
+                    console.error(err);
+                    setError("Unable to load this book. Please try again.");
+                }
+            } finally {
+                if (!controller.signal.aborted) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        getBook();
+
+        return () => controller.abort();
+    }, [id]);
+
     return (
         <main className="book-detail-page">
             <Link to="/browse" className="book-back-link">
                 ← Back to Browse Books
             </Link>
 
-            <section className="book-detail">
-                <div className="book-detail-image">
-                    <img
-                        src={`${import.meta.env.BASE_URL}images/evelyn-hugo.jpg`}
-                        alt="The Seven Husbands of Evelyn Hugo"
-                    />
-                </div>
+            {loading && (
+                <p role="status">Loading book details...</p>
+            )}
 
-                <div className="book-detail-info">
-                    <h2>The Seven Husbands of Evelyn Hugo</h2>
-                    <h3>by Taylor Jenkins Reid</h3>
+            {error && (
+                <p role="alert">{error}</p>
+            )}
 
-                    <p className="book-detail-rating">★★★★★</p>
-
-                    <div className="book-detail-facts">
-                        <p><strong>Genre:</strong> Historical Fiction</p>
-                        <p><strong>Rating:</strong> 5/5 Stars</p>
-                        <p><strong>Length:</strong> 400 Pages</p>
+            {!loading && !error && book && (
+                <section className="book-detail">
+                    <div className="book-detail-image">
+                        <img
+                            src={`${import.meta.env.BASE_URL}images/${book.img_name}`}
+                            alt={book.title}
+                        />
                     </div>
 
-                    <h3>About the Book</h3>
+                    <div className="book-detail-info">
+                        <h2>{book.title}</h2>
+                        <h3>by {book.author}</h3>
 
-                    <p>
-                        Aging Hollywood icon Evelyn Hugo is finally ready
-                        to tell the truth about her glamorous and
-                        scandalous life. When she chooses an unknown
-                        journalist to write her story, the two uncover
-                        secrets about love, ambition, fame, and the
-                        sacrifices made along the way.
-                    </p>
+                        <p className="book-detail-rating">
+                            {"★".repeat(book.rating)}
+                        </p>
 
-                    <h3>Why I Recommend It</h3>
+                        <div className="book-detail-facts">
+                            <p><strong>Genre:</strong> {book.genre}</p>
+                            <p><strong>Rating:</strong> {book.rating}/5 Stars</p>
+                            <p><strong>Length:</strong> {book.pages} Pages</p>
+                        </div>
 
-                    <p>
-                        This is one of those books that stays with you
-                        long after you finish reading. The characters,
-                        emotional storytelling, and unexpected twists
-                        make it difficult to put down.
-                    </p>
+                        <h3>About This Book</h3>
 
-                    <Link to="/browse" className="button">
-                        Explore More Books →
-                    </Link>
-                </div>
-            </section>
+                        <p>
+                            Discover {book.title} by {book.author}.
+                            This {book.genre.toLowerCase()} recommendation
+                            is part of the Dog-Eared book collection.
+                        </p>
+
+                        <h3>Why I Recommend It</h3>
+
+                        <p>
+                            This book earned a spot on my recommendation
+                            list because of its memorable reading experience.
+                            Explore more books to find your next favorite read.
+                        </p>
+
+                        <Link to="/browse" className="button">
+                            Explore More Books →
+                        </Link>
+                    </div>
+                </section>
+            )}
         </main>
     );
 }
