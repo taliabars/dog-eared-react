@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./BookCard.css";
 
@@ -11,16 +12,43 @@ function BookCard({
     browse = false,
     link
 }) {
-    const imagePath = `${import.meta.env.BASE_URL}images/${image}`;
+    const [imageError, setImageError] = useState(false);
+
+    const imagePath = image
+        ? `${import.meta.env.BASE_URL}images/${image}`
+        : "";
+
+    const showPlaceholder = !image || imageError;
+
+    const bookCover = showPlaceholder ? (
+        <div
+            className="book-cover-placeholder"
+            role="img"
+            aria-label={`No cover available for ${title}`}
+        >
+            <span>📖</span>
+            <p>No Cover Available</p>
+        </div>
+    ) : (
+        <img
+            src={imagePath}
+            alt={title}
+            onError={() => setImageError(true)}
+        />
+    );
 
     return (
         <section className={browse ? "book-card" : "book"}>
             {link ? (
-                <Link to={link} aria-label={`View details for ${title}`}>
-                    <img src={imagePath} alt={title} />
+                <Link
+                    to={link}
+                    className="book-cover-link"
+                    aria-label={`View details for ${title}`}
+                >
+                    {bookCover}
                 </Link>
             ) : (
-                <img src={imagePath} alt={title} />
+                bookCover
             )}
 
             <h3>
@@ -34,9 +62,11 @@ function BookCard({
             </h3>
 
             <p>{author}</p>
+
             <p aria-label={`${rating} out of 5 stars`}>
                 {"★".repeat(rating)}
             </p>
+
             <p>{genre}</p>
 
             {browse && link && (

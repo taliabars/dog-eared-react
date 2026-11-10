@@ -9,6 +9,7 @@ function Book() {
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [imageError, setImageError] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -17,6 +18,7 @@ function Book() {
             setLoading(true);
             setError("");
             setBook(null);
+            setImageError(false);
 
             try {
                 const response = await fetch(
@@ -47,6 +49,8 @@ function Book() {
         return () => controller.abort();
     }, [id]);
 
+    const showPlaceholder = book && (!book.img_name || imageError);
+
     return (
         <main className="book-detail-page">
             <Link to="/browse" className="book-back-link">
@@ -64,10 +68,22 @@ function Book() {
             {!loading && !error && book && (
                 <section className="book-detail">
                     <div className="book-detail-image">
-                        <img
-                            src={`${import.meta.env.BASE_URL}images/${book.img_name}`}
-                            alt={book.title}
-                        />
+                        {showPlaceholder ? (
+                            <div
+                                className="book-detail-placeholder"
+                                role="img"
+                                aria-label={`No cover available for ${book.title}`}
+                            >
+                                <span>📖</span>
+                                <p>No Cover Available</p>
+                            </div>
+                        ) : (
+                            <img
+                                src={`${import.meta.env.BASE_URL}images/${book.img_name}`}
+                                alt={book.title}
+                                onError={() => setImageError(true)}
+                            />
+                        )}
                     </div>
 
                     <div className="book-detail-info">

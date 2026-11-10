@@ -1,0 +1,110 @@
+
+.add-book-section {
+    background: #e8d8d0;
+    padding: 40px;
+    border-radius: 15px;
+    margin: 50px 0;
+}
+
+.add-book-section h2 {
+    color: #4a2932;
+    font-family: Georgia, serif;
+    font-size: 36px;
+    margin-top: 0;
+}
+
+.add-book-section > p {
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.add-book-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 700px;
+}
+
+.add-book-form label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.add-book-form input,
+.add-book-form select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d7c7bf;
+    border-radius: 8px;
+    background: #f8f3eb;
+    color: #332a27;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.add-book-row {
+    display: flex;
+    gap: 20px;
+}
+
+.add-book-row > div {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.add-book-hint {
+    font-size: 13px;
+    margin: 0;
+    color: #5b4548;
+}
+
+.add-book-form .button {
+    align-self: flex-start;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.add-book-form .button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.add-book-success {
+    background: #e3efe3;
+    color: #285a35;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.add-book-errors {
+    background: #f7dddd;
+    color: #8b2929;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.add-book-errors p {
+    margin: 5px 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .add-book-section {
+        padding: 25px;
+        margin: 35px 0;
+    }
+
+    .add-book-section h2 {
+        font-size: 30px;
+    }
+
+    .add-book-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+}

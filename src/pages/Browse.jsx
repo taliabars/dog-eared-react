@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import BookCard from "../components/BookCard";
+import AddBookForm from "../components/AddBookForm";
 import "./Browse.css";
 
 function Browse() {
@@ -41,6 +42,11 @@ function Browse() {
         return () => controller.abort();
     }, []);
 
+    const handleBookAdded = (newBook) => {
+        setBooks((previous) => [...previous, newBook]);
+        setError("");
+    };
+
     return (
         <main className="browse-page">
             <h2 className="page-title">Browse Books</h2>
@@ -66,6 +72,8 @@ function Browse() {
                 <div className="filter">Length ▾</div>
                 <div className="filter">Mood ▾</div>
             </div>
+
+            <AddBookForm onBookAdded={handleBookAdded} />
 
             <h2>All Books</h2>
 
