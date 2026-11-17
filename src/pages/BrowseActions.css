@@ -1,0 +1,85 @@
+
+.editable-book-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.editable-book-entry {
+    min-width: 0;
+    background: #e8d8d0;
+    border-radius: 12px;
+    padding-bottom: 20px;
+    overflow: hidden;
+}
+
+.editable-book-entry .book-card {
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.book-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.book-actions button,
+.delete-confirmation button {
+    background: #4a2932;
+    color: #f8f3eb;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.book-actions .delete-book-button {
+    background: #8b4148;
+}
+
+.delete-confirmation {
+    background: #f8f3eb;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.delete-confirmation p {
+    overflow-wrap: anywhere;
+}
+
+.delete-confirmation button {
+    margin: 5px;
+}
+
+.delete-confirmation button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.browse-success {
+    color: #285a35;
+    font-weight: bold;
+}
+
+.browse-error {
+    color: #8b2929;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 900px) {
+    .editable-book-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .editable-book-grid {
+        grid-template-columns: 1fr;
+    }
+}
